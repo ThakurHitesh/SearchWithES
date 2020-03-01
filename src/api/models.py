@@ -38,3 +38,15 @@ class Books(TimeStamp):
     stock_count = models.PositiveIntegerField()
     tags = models.ManyToManyField('Tag', blank=True)
 
+    @property
+    def authors_indexing(self):
+        return [ author.name for author in self.authors.all()]
+
+    @property
+    def publisher_indexing(self):
+        if self.publisher is not None:
+            return self.publisher.name
+
+    @property
+    def tags_indexing(self):
+        return [ tag.name for tag in self.tags.all()]
