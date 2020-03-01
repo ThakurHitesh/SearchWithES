@@ -9,62 +9,64 @@ index.settings(number_of_shards=1, number_of_replicas=1)
 html_strip = analyzer(
     'html_strip',
     tokenizer = 'standard',
-    filter = ['lowercase', 'snowball', 'stop', 'standard'],
+    filter = ['lowercase', 'snowball', 'stop'],
     char_filter = ["html_strip"] 
 )
 
 @index.doc_type
 class BooksDocument(Document):
     
-    id = fields.IntegerField(attr=id)
-    title = fields.StringField(
+    id = fields.Keyword()
+    title = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.StringField(analyzer = 'keyword'),
+            'raw': fields.Keyword(),
         }
     )
-    description = fields.StringField(
+    description = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.StringField(analyzer = 'keyword'),
+            'raw': fields.Keyword(),
         }
     )
-    summary = fields.StringField(
+    summary = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.StringField(analyzer = 'keyword'),
+            'raw': fields.Keyword(),
         }
     )
-    authors = fields.StringField(
-        attr = 'authors_indexing'
+    authors = fields.TextField(
+        attr = 'authors_indexing',
         analyzer = html_strip,
         fields = {
-            'raw': fields.StringField(analyzer = 'keyword', multi = True)
+            'raw': fields.TextField(analyzer = 'keyword', multi = True)
         },
         multi = True
     )
-    publisher = fields.StringField(
-        attr = 'publisher_indexing'
+    publisher = fields.TextField(
+        attr = 'publisher_indexing',
         analyzer = html_strip,
         fields = {
-            'raw': fields.StringField(analyzer = 'keyword')
+            'raw': fields.Keyword()
         }
     )
     publication_date = fields.DateField()
-    isbn = fields.StringField(
+    isbn = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.StringField(analyzer = 'keyword'),
+            'raw': fields.Keyword(),
         }
     )
     price = fields.FloatField()
     pages = fields.IntegerField()
-    stock_count = models.IntegerField()
-    tags = fields.StringField(
+    stock_count = fields.IntegerField()
+    tags = fields.TextField(
         attr='tags_indexing',
         analyzer=html_strip,
         fields={
-            'raw': fields.StringField(analyzer='keyword', multi=True),
+            'raw': fields.Keyword(multi=True),
             },
         multi=True
         )
+    class Django():
+        model = Books

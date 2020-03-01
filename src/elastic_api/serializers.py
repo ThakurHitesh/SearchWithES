@@ -3,7 +3,7 @@ from elastic_api.documents import BooksDocument
 
 class BooksDocumentSerializer(DocumentSerializer):
     class Meta:
-        model = BooksDocument
+        document = BooksDocument
         fields = [
             'id',
             'title',
