@@ -9,6 +9,7 @@ class BooksDocumentSerializer(DocumentSerializer):
             'title',
             'description',
             'summary',
+            'authors',
             'publisher',
             'publication_date',
             'state',

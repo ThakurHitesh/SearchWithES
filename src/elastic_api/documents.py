@@ -16,45 +16,44 @@ html_strip = analyzer(
 @index.doc_type
 class BooksDocument(Document):
     
-    id = fields.Keyword()
+    id = fields.KeywordField(attr='id')
     title = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.Keyword(),
+            'raw': fields.KeywordField(),
         }
     )
     description = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.Keyword(),
+            'raw': fields.KeywordField(),
         }
     )
     summary = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.Keyword(),
+            'raw': fields.KeywordField(),
         }
     )
     authors = fields.TextField(
         attr = 'authors_indexing',
         analyzer = html_strip,
         fields = {
-            'raw': fields.TextField(analyzer = 'keyword', multi = True)
+            'raw': fields.KeywordField()
         },
-        multi = True
     )
     publisher = fields.TextField(
         attr = 'publisher_indexing',
         analyzer = html_strip,
         fields = {
-            'raw': fields.Keyword()
+            'raw': fields.KeywordField()
         }
     )
     publication_date = fields.DateField()
     isbn = fields.TextField(
         analyzer = html_strip,
         fields = {
-            'raw': fields.Keyword(),
+            'raw': fields.KeywordField(),
         }
     )
     price = fields.FloatField()
@@ -64,9 +63,8 @@ class BooksDocument(Document):
         attr='tags_indexing',
         analyzer=html_strip,
         fields={
-            'raw': fields.Keyword(multi=True),
-            },
-        multi=True
+            'raw': fields.KeywordField(),
+            }
         )
     class Django():
         model = Books
