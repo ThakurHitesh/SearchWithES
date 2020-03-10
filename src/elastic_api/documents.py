@@ -21,6 +21,7 @@ class BooksDocument(Document):
         analyzer = html_strip,
         fields = {
             'raw': fields.KeywordField(),
+            'suggest': fields.CompletionField()
         }
     )
     description = fields.TextField(
