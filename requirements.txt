@@ -1,6 +1,6 @@
 backcall==0.1.0
 decorator==4.4.1
-Django==2.2.10
+Django==2.2.24
 django-elasticsearch-dsl==7.1.1
 django-elasticsearch-dsl-drf==0.20.5
 django-nine==0.2.3
